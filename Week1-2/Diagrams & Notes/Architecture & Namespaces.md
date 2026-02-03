@@ -6,9 +6,9 @@ The developer communicates with the cluster by sending manifest files (deploymen
 
 The deployment workload (deployment.yaml) defines a pod group:
 
-    - It tells the control plane how many pods to run (replicas) in the pod group, the pod group label, and what images the containers should use.
+• It tells the control plane how many pods to run (replicas) in the pod group, the pod group label, and what images the containers should use.
 
-    - The control plane's scheduler assigns the pods to a worker node. The kubelet on that node starts the containers. Every pod is assigned a unique IP address and is assigned to a namespace.
+• The control plane's scheduler assigns the pods to a worker node. The kubelet on that node starts the containers. Every pod is assigned a unique IP address and is assigned to a namespace.
 
 Service.yaml defines a ClusterIP that is the entry point for a pod group. When the ClusterIP receives a request, the kube-proxy running on the worker nodes load balances and routes the request to a pod in the pod group (using the label selector in service.yaml and namespace defined).
 
