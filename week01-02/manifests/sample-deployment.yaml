@@ -15,14 +15,5 @@ spec:
       containers:
         - name: sample-app
           image: nginx:1.27
-          # keeps adding a's, so the variable 'x' uses more RAM
-          command: ["/bin/sh", "-c", "x='a'; while true; do x=$x$x; done"]
           ports:
             - containerPort: 80
-          resources:
-            requests:
-              memory: "5Mi"
-              cpu: "100m"
-            limits:
-              memory: "5Mi"
-              cpu: "200m"
