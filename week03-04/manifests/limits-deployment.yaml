@@ -14,10 +14,9 @@ spec:
     spec:
       containers:
         - name: app
-          image:
-            nginx
-            # Triggers OOMKilled: keeps adding a's, so the variable 'x' uses more RAM
-          command: ["/bin/sh", "-c", "x='a'; while true; do x=$x$x; done"]
+          image: nginx
+          # Triggers OOMKilled: keeps adding a's, so the variable 'x' uses more RAM
+          # command: ["/bin/sh", "-c", "x='a'; while true; do x=$x$x; done"]
           resources:
             requests:
               cpu: "100m"
