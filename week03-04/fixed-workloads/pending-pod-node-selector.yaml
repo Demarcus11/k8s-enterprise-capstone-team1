@@ -1,0 +1,16 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pending-pod-node-selector
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pending-pod-node-selector
+  template:
+    metadata:
+      labels:
+        app: pending-pod-node-selector
+      containers:
+        - name: nginx
+          image: nginx
