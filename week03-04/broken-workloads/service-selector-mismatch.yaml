@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: demo-app
+  name: service-selector-demo
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: demo-server
+      app: service-selector-demo
   template:
     metadata:
       labels:
-        app: demo-server # label must match service label
+        app: service-selector-demo # must match label in service
     spec:
       containers:
         - name: nginx

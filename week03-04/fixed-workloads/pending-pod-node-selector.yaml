@@ -11,6 +11,9 @@ spec:
     metadata:
       labels:
         app: pending-pod-node-selector
+    spec:
+      nodeSelector:
+        randomSelector: randomValue
       containers:
         - name: nginx
           image: nginx

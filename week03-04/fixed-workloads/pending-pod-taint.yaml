@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: pending-pod-toleration
+  name: pending-pod-taint
 spec:
   containers:
     - name: nginx
