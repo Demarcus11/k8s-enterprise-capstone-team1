@@ -6,7 +6,7 @@ service-selector-mismatch deployment workload can't be accessed because it has n
 
 ## Symptoms
 
-Service shows no endpoints.
+Can't connect to app when port forwarding after running: kubectl port-forward svc/service-selector-demo-service 8080:80
 
 ## Investigation
 
