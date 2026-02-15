@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hpa-resource-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hpa-resource-deployment
+  template:
+    metadata:
+      labels:
+        app: hpa-resource-deployment
+    spec:
+      containers:
+      - name: app
+        image: nginx
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "500m"
+            memory: "256Mi"
+      tolerations:
+        - key: "capstone"
+          operator: "Equal"
+          value: "week3-4"
+          effect: "NoSchedule"

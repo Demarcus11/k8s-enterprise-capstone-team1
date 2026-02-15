@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pending-pod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pending-pod
+  template:
+    metadata:
+      labels:
+        app: pending-pod
+    spec:
+      containers:
+      - name: app
+        image: nginx
+        resources:
+          requests:
+            cpu: "100"
+            memory: "128Gi"

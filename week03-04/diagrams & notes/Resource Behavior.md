@@ -1,0 +1,5 @@
+# Resource Behavior
+
+According to Sandeep Dinesh's *Kubernetes Best Practices: Resource Requests and Limits* published by Google Cloud, requests and limits are mechanisms Kubernetes uses to control resources. Requests are what a container is guaranteed to get, where if a container requests a resource it will only be scheduled on a node that can give it that resource. Limits, however, make sure that a container never goes above a certain value or else it will be restricted [(Kubernetes Best Practices: Resource Requests and Limits | Sandeep Dinesh)](https://cloud.google.com/blog/products/containers-kubernetes/kubernetes-best-practices-resource-requests-and-limits).
+
+OOMKilled is a direct consequence of exceeding resource limitations. OOMKilled stands for "Out of Memory Killed", and occurs when a container exceeds the memory that has been allocated to it. When this occurs, Kubernetes will kill the process in order to prevent it from affecting other workloads within the node [(Understanding OOMKilled in Kubernetes and How to Fix It | Niranjan Bohara)](https://medium.com/@mrniranjanbohara/understanding-oomkilled-in-kubernetes-and-how-to-fix-it-7388e00fb401).

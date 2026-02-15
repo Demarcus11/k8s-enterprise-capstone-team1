@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: node-selector-pod
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+  tolerations:
+    - key: "capstone"
+      operator: "Equal"
+      value: "week3-4"
+      effect: "NoSchedule"
+  nodeSelector:
+    disktype: ssd

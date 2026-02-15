@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service-mismatch
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: service-mismatch
+  template:
+    metadata:
+      labels:
+        app: service-mismatch
+    spec:
+      containers:
+      - name: service-mismatch
+        image: nginx:1.27
+        ports:
+        - containerPort: 80

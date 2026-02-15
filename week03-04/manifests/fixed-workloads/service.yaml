@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-mismatch
+spec:
+  selector:
+    app: service-mismatch # Correctly points to deployment 
+  ports:
+  - port: 80
+    targetPort: 80
+  type: ClusterIP

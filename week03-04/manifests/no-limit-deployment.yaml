@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: no-limit-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: no-limit-deployment
+  template:
+    metadata:
+      labels:
+        app: no-limit-deployment
+    spec:
+      containers:
+      - name: app
+        image: nginx
