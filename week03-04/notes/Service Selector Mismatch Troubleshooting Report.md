@@ -6,7 +6,7 @@ service-selector-mismatch deployment workload can't be accessed because it has n
 
 ## Symptoms
 
-Pod stuck with status pending.
+Service shows no endpoints.
 
 ## Investigation
 
