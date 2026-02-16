@@ -17,10 +17,12 @@ spec:
         image: nginx:1.27
         resources:
           requests:
-            cpu: "2m"
-            memory: "5Mi"
+            memory: "32Mi"
+            cpu: "250m"
           limits:
-            cpu: "4m"
-            memory: "10Mi"
+            memory: "64Mi"
+            cpu: "500m"
+        #create an OOM by using more memory than the limit
+        args: ["--vm", "1", "--vm-bytes", "128M", "--vm-hang", "1"]
         ports:
         - containerPort: 80
