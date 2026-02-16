@@ -1,4 +1,4 @@
-![Architecture diagram](screenshots/noResourceLimit.png)
+
 
 # Notes
 
