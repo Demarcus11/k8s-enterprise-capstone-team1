@@ -17,6 +17,7 @@
 
 2.  Triggering OOMKilled Scenario (oomD.yaml):
     To trigger an OOMKilled scenario, we can create a pod that consumes more memory than the limits set in the deployment.yaml file. For example, we can create a pod that runs a memory-intensive application that consumes more than 512Mi of memory. When the pod exceeds the memory limit, it will be terminated and restarted by Kubernetes with the OOMKilled status.
+    <br>
 ![OOM Kill](oomKill.png)
 
 3.  Extra notes
