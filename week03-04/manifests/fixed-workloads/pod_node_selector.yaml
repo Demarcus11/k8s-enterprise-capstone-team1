@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: node-selector-pod
+spec:
+  nodeSelector:
+    kubernetes.io/hostname: <node-name>
+  tolerations:
+  - key: "env"
+    operator: "Equal"
+    value: "prod"
+    effect: "NoSchedule"
+  containers:
+  - name: app
+    image: nginx
