@@ -1,1 +1,1 @@
-![alt text](screenshots/noResourceLimit.png)
+![Architecture diagram](screenshots/noResourceLimit.png)
