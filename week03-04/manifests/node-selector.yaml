@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: node-selector-pod
+spec:
+  nodeSelector:
+    kubernetes.io/hostname: kind-control-plane
+  tolerations:
+  - key: "dedicated"
+    operator: "Equal"
+    value: "ops"
+    effect: "NoSchedule"
+  containers:
+  - name: nginx
+    image: nginx
