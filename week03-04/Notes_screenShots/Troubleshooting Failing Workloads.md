@@ -31,6 +31,8 @@ Currently i have a pending crash-demo pod:
 <br>
 The error is "0/3 nodes are available: 3 node(s) had taint {dedicated=experimental:NoSchedule}, that the pod didn't tolerate."
 This means that the pod is not scheduled because it does not have a toleration for the taint on the node. To fix this, I need to add a toleration to the pod that matches the taint on the node. I will update my .yaml file to include the following toleration:
+
+
 tolerations:
       - key: "node-role.kubernetes.io/control-plane"
         operator: "Exists"
@@ -51,7 +53,7 @@ After updating the .yaml file and applying the changes, my pod is now running su
 
 # Service selector mismatch
 I created a service and Deployment .yaml webservice file however, the endpoint cannot connect:
-![alt text](screenshots\ServiceSelectorError.png)
+![alt text](screenshots/ServiceSelectorError.png)
 The error is "Endpoints: <none>". This means that the service is not able to find any pods that match its selector. To fix this issue, I need to ensure that the labels on the pods created by the Deployment match the selector specified in the Service. I will update my Deployment .yaml file to include the correct labels that match the Service selector. After updating the .yaml file and applying the changes, my service is now able to connect to the pods successfully:
-![alt text](screenshots\ServiceSelectorErrorWorking.png)
+![alt text](screenshots/ServiceSelectorErrorWorking.png)
 
