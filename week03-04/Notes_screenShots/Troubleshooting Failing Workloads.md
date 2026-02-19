@@ -28,14 +28,14 @@ This is because the image "nginx:latest" is not available in the container regis
 
 
 # Pending work loads
-Currently i have a pending crash-demo pod:
-![alt text](screenshots/PendingError.png)
-<br>
-The error is "0/3 nodes are available: 3 node(s) had taint {dedicated=experimental:NoSchedule}, that the pod didn't tolerate."
-This means that the pod is not scheduled because it does not have a toleration for the taint on the node. To fix this, I need to add a toleration to the pod that matches the taint on the node. I will update my .yaml file to include the following toleration:
+Currently i have a pending crash-demo pod:<br>
+![alt text](screenshots/PendingError.png)<br>
+
+The error is "0/3 nodes are available: 3 node(s) had taint {dedicated=experimental:NoSchedule}, that the pod didn't tolerate."<br>
+This means that the pod is not scheduled because it does not have a toleration for the taint on the node. To fix this, I need to add a toleration to the pod that matches the taint on the node. I will update my .yaml file to include the following toleration:<br>
 
 
-tolerations:
+`tolerations:
       - key: "node-role.kubernetes.io/control-plane"
         operator: "Exists"
         effect: "NoSchedule"
@@ -48,7 +48,7 @@ tolerations:
       - key: "test"
         operator: "Equal"
         value: "noschedule"
-        effect: "NoSchedule"
+        effect: "NoSchedule"`
 
 After updating the .yaml file and applying the changes, my pod is now running successfully:
 ![alt text](screenshots/pendingRunning.png)
