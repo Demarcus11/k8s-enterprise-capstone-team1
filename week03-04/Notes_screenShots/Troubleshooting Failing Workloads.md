@@ -22,7 +22,7 @@ The error is "Back-off pulling image". This means that Kubernetes is trying to p
 I get this Event:
 ![alt text](screenshots\ImagePullErrorDetails.png)
 This is because the image "nginx:latest" is not available in the container registry. To fix this issue, I will update my .yaml file to use a valid image that is available in the registry. For example, I can change the image to "nginx:1.27". After updating the .yaml file and applying the changes, my pod is now running successfully:
-![alt text](screenshots\ImagePullErrorRunning.png)
+![alt text](week03-04\Notes_screenShots\screenshots\ImagePullErrorRunning.png)
 
 
 # Pending work loads
