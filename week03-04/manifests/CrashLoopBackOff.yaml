@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: crash-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: crash-demo
+  template:
+    metadata:
+      labels:
+        app: crash-demo
+    spec:
+      tolerations:
+      - key: "node-role.kubernetes.io/control-plane"
+        operator: "Exists"
+        effect: "NoSchedule"
+
+      - key: "dedicated"
+        operator: "Equal"
+        value: "experimental"
+        effect: "NoSchedule"
+
+      - key: "test"
+        operator: "Equal"
+        value: "noschedule"
+        effect: "NoSchedule"
+
+      containers:
+      - name: crash
+        image: busybox
+        #command: ["sh", "-c", "exit 1"]
+        command: ["sh", "-c", "while true; do sleep 30; done"]
