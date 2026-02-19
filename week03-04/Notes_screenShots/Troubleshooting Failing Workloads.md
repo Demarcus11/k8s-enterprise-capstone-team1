@@ -1,28 +1,30 @@
 # CrashLoopBackOff Error
-I have a pod that is in a CrashLoopBackOff state:
+I have a pod that is in a CrashLoopBackOff state:<br>
 ![crash Image](screenshots/CrashLoopError.png)
 
-The error is "Back-off restarting failed container". This means that the container in the pod is crashing and Kubernetes is trying to restart it, but it keeps failing. To troubleshoot this issue, I can check the details of the pod to see why it is crashing. I will run the following command:
-- kubectl describe pod crash-demo
-I get this Event:
-![alt text](screenshots/CrashLoopErrorDetails.png)
-This is because I am running the command
+The error is "Back-off restarting failed container". This means that the container in the pod is crashing and Kubernetes is trying to restart it, but it keeps failing. To troubleshoot this issue, I can check the details of the pod to see why it is crashing. I will run the following command:<br>
+- kubectl describe pod crash-demo<br>
+I get this Event:<br>
+![alt text](screenshots/CrashLoopErrorDetails.png)<br>
+This is because I am running the command<br>
 - #command: ["sh", "-c", "exit 1"]
+<br>
 This command will cause the container to exit with a status code of 1, which indicates an error. To fix this issue, I will update my .yaml file to run a command that does not cause the container to crash. For example, I can change the command to:
-- command: ["sh", "-c", "while true; do sleep 30; done"]
-This command will keep the container running indefinitely, allowing me to troubleshoot any issues without it crashing. After updating the .yaml file and applying the changes, my pod is now running successfully:
+<br>
+- command: ["sh", "-c", "while true; do sleep 30; done"]<br>
+This command will keep the container running indefinitely, allowing me to troubleshoot any issues without it crashing. After updating the .yaml file and applying the changes, my pod is now running successfully:<br>
 ![alt text](screenshots/CrashLoopErrorRunning.png)
 
 
 # ImagePullBackOff Error
-I have a pod that is in an ImagePullBackOff state:
-![alt text](screenshots/ImagePullError.png)
+I have a pod that is in an ImagePullBackOff state:<br>
+![alt text](screenshots/ImagePullError.png)<br>
 The error is "Back-off pulling image". This means that Kubernetes is trying to pull the container image for the pod, but it is failing. To troubleshoot this issue, I can check the details of the pod to see why it is failing to pull the image. I will run the following command:
 - kubectl describe pod image-pull-demo
-I get this Event:
-![alt text](screenshots/ImagePullErrorDetails.png)
-This is because the image "nginx:latest" is not available in the container registry. To fix this issue, I will update my .yaml file to use a valid image that is available in the registry. For example, I can change the image to "nginx:1.27". After updating the .yaml file and applying the changes, my pod is now running successfully:
-![alt text](screenshots/ImagePullErrorRunning.png)
+I get this Event:<br>
+![alt text](screenshots/ImagePullErrorDetails.png)<br>
+This is because the image "nginx:latest" is not available in the container registry. To fix this issue, I will update my .yaml file to use a valid image that is available in the registry. For example, I can change the image to "nginx:1.27". After updating the .yaml file and applying the changes, my pod is now running successfully:<br>
+![alt text](screenshots/ImagePullErrorRunning.png)<br>
 
 
 # Pending work loads
