@@ -54,8 +54,8 @@ After updating the .yaml file and applying the changes, my pod is now running su
 ![alt text](screenshots/pendingRunning.png)
 
 # Service selector mismatch
-I created a service and Deployment .yaml webservice file however, the endpoint cannot connect:
-![alt text](screenshots/ServiceSelectorError.png)
-The error is "Endpoints: <none>". This means that the service is not able to find any pods that match its selector. To fix this issue, I need to ensure that the labels on the pods created by the Deployment match the selector specified in the Service. I will update my Deployment .yaml file to include the correct labels that match the Service selector. After updating the .yaml file and applying the changes, my service is now able to connect to the pods successfully:
-![alt text](screenshots/ServiceSelectorErrorWorking.png)
+I created a service and Deployment .yaml webservice file however, the endpoint cannot connect:<br>
+![alt text](screenshots/ServiceSelectorError.png)<br>
+The error is "Endpoints: < none >". This means that the service is not able to find any pods that match its selector. To fix this issue, I need to ensure that the labels on the pods created by the Deployment match the selector specified in the Service. I will update my Deployment .yaml file to include the correct labels that match the Service selector. After updating the .yaml file and applying the changes, my service is now able to connect to the pods successfully:<br>
+![alt text](screenshots/ServiceSelectorErrorWorking.png)<br>
 
