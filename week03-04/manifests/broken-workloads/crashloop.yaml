@@ -15,4 +15,3 @@ spec:
       containers:
       - name: app
         image: nginx
-        command: ["/bin/false"]
