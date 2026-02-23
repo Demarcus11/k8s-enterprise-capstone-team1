@@ -17,3 +17,41 @@ spec:
           image: nginx:1.27
           ports:
             - containerPort: 80
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-demo
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: app-demo
+  template:
+    metadata:
+      labels:
+        app: app-demo
+    spec:
+      containers:
+        - name: app
+          image: nginx:1.27
+          ports:
+            - containerPort: 80
+          env:
+            - name: APP_ENV
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: ENV
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: app-secret
+                  key: PASSWORD
+          volumeMounts:
+            - name: config-volume
+              mountPath: "/etc/config"
+              readOnly: true
+      volumes:
+        - name: config-volume
+          configMap:
+            name: app-config
