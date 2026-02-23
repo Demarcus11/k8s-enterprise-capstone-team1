@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: nginx:1.27
+          image: nginx:fake
           ports:
             - containerPort: 80
           livenessProbe:
