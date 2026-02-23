@@ -258,7 +258,7 @@ LAST SEEN   TYPE      REASON                         OBJECT                     
 
 This shows the new workload was scheduled, pulled, created and started.
 
-kubectl logs rashloop-demo-98f65959f-2b4pq -n dev outputs:
+kubectl logs rashloop-demo-98f65959f-2b4pq outputs:
 
 ```
 /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
