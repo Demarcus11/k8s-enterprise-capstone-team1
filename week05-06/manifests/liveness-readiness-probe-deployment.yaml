@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: liveness-readiness-probe-deployment
+spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: liveness-readiness-probe-deployment
+  template:
+    metadata:
+      labels:
+        app: liveness-readiness-probe-deployment
+    spec:
+      containers:
+      - name: app
+        image: nginx:1.27
+        ports:
+        - containerPort: 80
+        livenessProbe:
+          httpGet:
+            path: / # /badLivenessPath was the invalid path that triggered pod restarts.
+            port: 80
+          initialDelaySeconds: 10
+        readinessProbe:
+          httpGet:
+            path: / # /badReadinessPath was the invalid path that prevented the Ready Pod state.
+            port: 80
+          initialDelaySeconds: 5
