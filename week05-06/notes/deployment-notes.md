@@ -1,36 +1,75 @@
 # Deployment Notes
 
-## Deployment strategy
+## Lab 1 Deployment
 
-- A stateless application was deployed using a Deployment with 2 replicas.
+- Created a stateless application that was deployed using a Deployment with 2 replicas.
 
   ```
-  PS C:\Users\demar\Desktop\Capstone Project\k8s-enterprise-capstone-team1> kubectl get pods
+  PS C:\Users\Jose Montalvo\Documents\GitHub\k8s-enterprise-capstone-team1> kubectl get pods
   NAME                        READY   STATUS    RESTARTS   AGE
-  app-demo-67f485f7cf-b46vj   1/1     Running   0          33s
-  app-demo-67f485f7cf-clhst   1/1     Running   0          33s
+  app-demo-5d845c9876-5stbg   1/1     Running   0          3m21s
+  app-demo-5d845c9876-qgfvz   1/1     Running   0          30m
   ```
 
-- A service was created to provide a stable IP and load balance across the pods.
+- Created a service.yaml to provide a stable IP and load balance across the pods.
 
   ```
-  PS C:\Users\demar\Desktop\Capstone Project\k8s-enterprise-capstone-team1> kubectl get services
-  NAME       TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
-  app-demo   ClusterIP   10.96.124.229   <none>        80/TCP    111m
+  PS C:\Users\Jose Montalvo\Documents\GitHub\k8s-enterprise-capstone-team1> kubectl get svc
+  NAME            TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
+  app-demo        ClusterIP   10.96.241.74   <none>        80/TCP    21m  
   ```
 
-- Used `kubectl scale deployment/app-demo --replicas=4` to increase replicas to 4 and observed how the service updated its endpoints.
+- Changed the number of replicas in the deployment file to 5.
 
   ```
-  PS C:\Users\demar\Desktop\Capstone Project\k8s-enterprise-capstone-team1> kubectl get pods
+  PS C:\Users\Jose Montalvo\Documents\GitHub\k8s-enterprise-capstone-team1> kubectl get pods
   NAME                        READY   STATUS    RESTARTS   AGE
-  app-demo-67f485f7cf-7mc92   1/1     Running   0          6s
-  app-demo-67f485f7cf-b46vj   1/1     Running   0          3m28s
-  app-demo-67f485f7cf-clhst   1/1     Running   0          3m28s
-  app-demo-67f485f7cf-cznzc   1/1     Running   0          6s
+  app-demo-5d845c9876-5stbg   1/1     Running   0          3m35s
+  app-demo-5d845c9876-c2fk8   1/1     Running   0          2s
+  app-demo-5d845c9876-p72ml   1/1     Running   0          2s
+  app-demo-5d845c9876-qgfvz   1/1     Running   0          31m
+  app-demo-5d845c9876-ssgpz   1/1     Running   0          2s
+  ```
+- Tested Replicas by adding a print output
+  ```
+  command: ["/bin/sh"]
+          args: 
+            - "-c"
+            - echo "Hello from $(hostname)" > /usr/share/nginx/html/index.html && nginx -g 'daemon off;'
+  ```
+- Used kubectl run curl-test --rm -it --image=busybox -- sh to test the output
+  ```
+  / # wget -qO- app-demo
+  Hello from app-demo-7df55896c9-22qtf
+  / # wget -qO- app-demo
+  Hello from app-demo-7df55896c9-znnwt
+  / # wget -qO- app-demo
+  Hello from app-demo-7df55896c9-znnwt
+  / # wget -qO- app-demo
+  Hello from app-demo-7df55896c9-ljg5v
+  / # wget -qO- app-demo
+  Hello from app-demo-7df55896c9-dvttz
+  / # wget -qO- app-demo
+  Hello from app-demo-7df55896c9-znnwt
+  / # wget -qO- app-demo
+  Hello from app-demo-7df55896c9-ljg5v`
   ```
 
-- Injected the ConfigMap and Secret into the pods using env vars and volumes.
+
+
+
+- Created and injected ConfigMap and secret env vars and volumes.
+  ```
+  PS C:\Users\Jose Montalvo\Documents\GitHub\k8s-enterprise-capstone-team1> kubectl exec -it app-demo-6f5c469cb-4d5ts -- sh
+  # echo $ENV
+  dev
+  -------------------------------------------------------------------------------------------------------------------------
+  PS C:\Users\Jose Montalvo\Documents\GitHub\k8s-enterprise-capstone-team1> kubectl describe pod app-demo-5f45df76cd-5gwkz
+  Environment:
+      ENV:          <set to the key 'ENV' of config map 'app-config'>   Optional: false
+      DB_PASSWORD:  <set to the key 'PASSWORD' in secret 'app-secret'>  Optional: false
+  ```
+
 
 ## Probe behavior
 

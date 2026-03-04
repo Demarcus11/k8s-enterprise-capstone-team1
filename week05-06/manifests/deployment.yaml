@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: app-demo
 spec:
-  replicas: 2
+  replicas: 5
   selector:
     matchLabels:
       app: app-demo
@@ -15,10 +15,14 @@ spec:
       containers:
         - name: app
           image: nginx:1.27
+          command: ["/bin/sh"]
+          args: 
+            - "-c"
+            - echo "Hello from $(hostname)" > /usr/share/nginx/html/index.html && nginx -g 'daemon off;'
           ports:
             - containerPort: 80
           env:
-            - name: APP_ENV
+            - name: ENV
               valueFrom:
                 configMapKeyRef:
                   name: app-config
