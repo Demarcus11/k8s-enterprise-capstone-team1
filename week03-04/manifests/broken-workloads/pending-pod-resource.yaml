@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pending-pod-resource
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pending-pod-resource
+  template:
+    metadata:
+      labels:
+        app: pending-pod-resource
+    spec:
+      containers:
+        - name: app
+          image: nginx
+          resources:
+            requests:
+              cpu: "10" # requesting 10 cpu cores (way too many)

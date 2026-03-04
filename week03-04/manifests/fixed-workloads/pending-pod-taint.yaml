@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pending-pod-taint
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+  tolerations:
+    - key: "randomKey"
+      operator: "Equal"
+      value: "randomValue"
+      effect: "NoSchedule"

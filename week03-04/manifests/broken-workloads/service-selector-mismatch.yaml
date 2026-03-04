@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service-selector-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: service-selector-demo
+  template:
+    metadata:
+      labels:
+        app: service-selector-demo # must match label in service
+    spec:
+      containers:
+        - name: nginx
+          image: nginx
