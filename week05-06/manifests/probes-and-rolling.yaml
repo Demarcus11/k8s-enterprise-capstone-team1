@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: nginx:fake
+          image: nginx
           ports:
             - containerPort: 80
           livenessProbe:
@@ -31,3 +31,4 @@ spec:
               path: /
               port: 80
             initialDelaySeconds: 5
+            periodSeconds: 5

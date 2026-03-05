@@ -76,34 +76,54 @@
 - Liveness probe: Pods passed liveness probe when livenessProbe path was /
 
 ```
-PS C:\Users\demar\Desktop\Capstone Project\k8s-enterprise-capstone-team1> kubectl get pods
-NAME                          READY   STATUS    RESTARTS   AGE
-app-probes-6cd55b66c6-6nx92   1/1     Running   0          14s
+PS C:\Users\Jose Montalvo\Documents\GitHub\k8s-enterprise-capstone-team1> kubectl get pods -w
+NAME                         READY   STATUS    RESTARTS      AGE
+app-probes-98b65cfc4-qdkqm   1/1     Running   0             100s
 ```
 
-- Liveness probe: Changed livenessProbe path to /fail and the pod's restarts started increasing.
+- Liveness probe: Changed livenessProbe's path from / to /doesnotexist causing the probe to restart.
 
 ```
-PS C:\Users\demar\Desktop\Capstone Project\k8s-enterprise-capstone-team1> kubectl get pods
+PS C:\Users\Jose Montalvo\Documents\GitHub\k8s-enterprise-capstone-team1> kubectl get pods -w
 NAME                          READY   STATUS    RESTARTS      AGE
-app-probes-5bccc6cd64-r8nnr   1/1     Running   1 (39s ago)   79s
+app-probes-76c79f8989-7t4n6   0/1     Running   1 (0s ago)    31s
+app-probes-76c79f8989-7t4n6   1/1     Running   1 (11s ago)   42s
+app-probes-76c79f8989-7t4n6   0/1     Running   2 (0s ago)    61s
+app-probes-76c79f8989-7t4n6   1/1     Running   2 (11s ago)   72s
+app-probes-76c79f8989-7t4n6   0/1     Running   3 (0s ago)    91s
+app-probes-76c79f8989-7t4n6   1/1     Running   3 (11s ago)   102s
+app-probes-76c79f8989-7t4n6   0/1     Running   4 (0s ago)    2m1s
+app-probes-76c79f8989-7t4n6   1/1     Running   4 (11s ago)   2m12s
+```
+- To prove liveness prope is working we can use kubectl describe pod app-probes
+```
+Events:
+  Type     Reason     Age                   From               Message
+  ----     ------     ----                  ----               -------
+  Normal   Scheduled  20m                   default-scheduler  Successfully assigned default/app-probes-76c79f8989-pvncx to kind-worker
+  Normal   Started    17m (x6 over 20m)     kubelet            Container started
+  Normal   Killing    16m (x6 over 20m)     kubelet            Container app failed liveness probe, will be restarted
+  Warning  BackOff    10m (x13 over 16m)    kubelet            Back-off restarting failed container app in pod app-probes-76c79f8989-pvncx_default(49af65ee-55eb-470e-a58f-0f2079abfab9)
+  Normal   Pulled     6m29s (x9 over 20m)   kubelet            Container image "nginx" already present on machine and can be accessed by the pod
+  Normal   Created    5m50s (x10 over 20m)  kubelet            Container created
+  Warning  Unhealthy  5m31s (x28 over 20m)  kubelet            Liveness probe failed: HTTP probe failed with statuscode: 404
 ```
 
-- Readiness probe: Pods passed readiness probe when readinessProbe path was /
+- Readiness probe: passed when readinessProbe path: /  THere was also no restarts
 
 ```
-PS C:\Users\demar\Desktop\Capstone Project\k8s-enterprise-capstone-team1> kubectl get pods
-NAME                          READY   STATUS    RESTARTS   AGE
-app-probes-6cd55b66c6-g7z98   1/1     Running   0          16s
+PS C:\Users\Jose Montalvo\Documents\GitHub\k8s-enterprise-capstone-team1> kubectl get pods
+NAME                          READY   STATUS    RESTARTS      AGE
+app-probes-754c9b6786-r2jrk   1/1     Running   0             18s
 ```
 
-- Readiness probe: Changed readinessProbe path to /fail and the new pod is stuck at 0/1 ready and the old pod is still running meaning k8s keeps the old pod running until the new pod is ready for traffic.
+- Readiness probe: readinessProbe path set to /broken . Now the new pod is stuck at 0/1 ready and the old pod is still running This is thanks to k8s keeping the old pod running until the new pod is ready for traffic.
 
 ```
-PS C:\Users\demar\Desktop\Capstone Project\k8s-enterprise-capstone-team1> kubectl get pods
-NAME                          READY   STATUS    RESTARTS   AGE
-app-probes-6cccf95f6d-ksv5r   0/1     Running   0          6s
-app-probes-6cd55b66c6-g7z98   1/1     Running   0          72s
+PS C:\Users\Jose Montalvo\Documents\GitHub\k8s-enterprise-capstone-team1> kubectl get pods
+NAME                          READY   STATUS    RESTARTS      AGE
+app-probes-754c9b6786-r2jrk   1/1     Running   0             8m56s
+app-probes-7dff488bbc-fdlsh   0/1     Running   0             2s
 ```
 
 ## Rollout and rollback observations
