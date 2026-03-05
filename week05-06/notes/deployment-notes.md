@@ -133,39 +133,45 @@ app-probes-7dff488bbc-fdlsh   0/1     Running   0             2s
 Initially:
 
 ```
-PS C:\Users\demar\Desktop\Capstone Project\k8s-enterprise-capstone-team1> kubectl rollout history deployment/app-probes
+PS C:\Users\Jose Montalvo\Documents\GitHub\k8s-enterprise-capstone-team1> kubectl rollout history deployment/app-probes
 deployment.apps/app-probes
 REVISION  CHANGE-CAUSE
 1         <none>
+
 ```
 
 Once image was changed:
 
 ```
-PS C:\Users\demar\Desktop\Capstone Project\k8s-enterprise-capstone-team1> kubectl rollout status deployment/app-probes
+PS C:\Users\Jose Montalvo\Documents\GitHub\k8s-enterprise-capstone-team1> kubectl rollout status deployment/app-probes
 Waiting for deployment "app-probes" rollout to finish: 1 old replicas are pending termination...
 Waiting for deployment "app-probes" rollout to finish: 1 old replicas are pending termination...
 deployment "app-probes" successfully rolled out
 
-PS C:\Users\demar\Desktop\Capstone Project\k8s-enterprise-capstone-team1> kubectl rollout history deployment/app-probes
-deployment.apps/app-probes
+PS C:\Users\Jose Montalvo\Documents\GitHub\k8s-enterprise-capstone-team1> kubectl rollout history deployment/app-probes
+deployment.apps/app-probes 
 REVISION  CHANGE-CAUSE
 1         <none>
-2         <none>
+5         <none>
 ```
 
-- Rollback: Changed the image to a fake nginx:fake image and the deployment failed then applied `kubectl rollout undo deployment/app-probes` to rollback the deployment and the new pod was killed.
+- Rollback: Changed the image to nginx:fake image causing an imagePull error then rolled back the update with `kubectl rollout undo deployment/app-probes` to rollback the deployment and the new pod was killed.
 
 ```
-PS C:\Users\demar\Desktop\Capstone Project\k8s-enterprise-capstone-team1> kubectl get pods
-NAME                          READY   STATUS             RESTARTS   AGE
-app-probes-59c68cf9b5-wpcvq   1/1     Running            0          5m42s
-app-probes-f9f777675-lfvwb    0/1     ImagePullBackOff   0          91s
+PS C:\Users\Jose Montalvo\Documents\GitHub\k8s-enterprise-capstone-team1> kubectl get pods                            
+NAME                          READY   STATUS         RESTARTS      AGE    
+ 
+app-probes-5485d57655-rg57m   1/1     Running        0             13m    
+app-probes-5bd799486f-4nmrj   0/1     ErrImagePull   0             35s    
 
-PS C:\Users\demar\Desktop\Capstone Project\k8s-enterprise-capstone-team1> kubectl rollout undo deployment/app-probes
+-----------------------------------------------------------------------------------------------------------------------
+
+PS C:\Users\Jose Montalvo\Documents\GitHub\k8s-enterprise-capstone-team1> kubectl rollout undo deployment/app-probes
 deployment.apps/app-probes rolled back
 
-PS C:\Users\demar\Desktop\Capstone Project\k8s-enterprise-capstone-team1> kubectl get pods
-NAME                          READY   STATUS    RESTARTS   AGE
-app-probes-59c68cf9b5-wpcvq   1/1     Running   0          7m4s
+-----------------------------------------------------------------------------------------------------------------------
+
+PS C:\Users\Jose Montalvo\Documents\GitHub\k8s-enterprise-capstone-team1> kubectl get pods
+NAME                          READY   STATUS    RESTARTS      AGE
+app-probes-5485d57655-rg57m   1/1     Running   0             16m
 ```
