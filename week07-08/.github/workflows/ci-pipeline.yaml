@@ -1,0 +1,32 @@
+name: CI Pipeline
+
+# Trigger pipeline on PR merge to main
+on:
+  pull_request:
+    types: [closed]
+    branches: [main]
+
+jobs:
+  ci-cd-pipeline:
+    # Run only if PR is merged (doesn't run if PR is closed/rejected)
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      # Validate YAML
+      - name: Validate YAML
+        run: helm lint ./solutions/helm/sample-app
+
+      # Build (Mock)
+      - name: Build container image (mock)
+        run: |
+          echo "Building container image..."
+          echo "Simulating image build for sample-app:latest..."
+          echo "Image build complete."
+
+      # Deploy to Kubernetes
+      - name: Deploy to Kubernetes using Helm
+        run: |
+          echo "Deploying to Kubernetes using Helm..."
+          helm upgrade --install sample-app ./solutions/helm/sample-app
