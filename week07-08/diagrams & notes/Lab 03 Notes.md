@@ -2,4 +2,4 @@
 
 ## Pipeline Stage Explanation
 
-Note content goes here.  
+Note content goes here. We will explain the pipeline stages.
