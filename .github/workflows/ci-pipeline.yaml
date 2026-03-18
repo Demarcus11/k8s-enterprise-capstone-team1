@@ -23,7 +23,7 @@ jobs:
           sudo mv kubeval /usr/local/bin/
 
       - name: Validate manifests
-        run: kubeval week07-08/manifests/*.yaml
+        run: kubeval --schema-location https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/ week07-08/manifests/*.yaml
 
       - name: Helm lint
         run: helm lint ./week07-08/solutions/helm/sample-app
