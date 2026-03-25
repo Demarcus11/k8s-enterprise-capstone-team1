@@ -1,13 +1,14 @@
 # Pipeline Stages
 
-## Validate YAML
+## Stage 0 Checkout  
+This is the stage where the source code is checked out from version control. In our case, we are using GitHub Actions and the `actions/checkout` action to checkout the code from our repository. This makes your helm chart, YAML, and dockerfile avalable
 
-This is the stage where `helm lint` is run which checks the syntax of the helm charts and manifests. This prevents syntax errors, missing fields, and templating issues from being deployed the cluster.
+## Stage 1 Validate YAML
+This stage is where the YAML files a validated by using `helm lint` to check the helm chart for syntax errors, any missing fields or bad structure.
 
-## Build (Mock)
+## Stage 2 Build (Mock) 
+This stage is  simulates when the sourse code is converted to a containter (Docker) image. This would normally run `docker build` and `docker push`, tag the image, then push it to a registry like docker hub. This makes sure the app can be packaged. 
 
-This is the stage where the app source code is turned into a container image. We used a mock for the lab, but in the real world you would use `docker build` and `docker push` and a tagged image would be pushed to a container registry such as Docker Hub.
+## Stage 3 Deploy to Kubernetes
 
-## Deploy to Kubernetes
-
-This is the last stage where the cluster state is updated using `helm upgrade --install`. This command compares the current cluster configs with the new configs. If they are different then a rolling update is applied (new pods created and old pods gradually removed).
+The final stage that updates the cluster stage using `helm upgrade --install`. Here the file deploys your app to Kubernetes using Helm, then, if the app exists and the current cluster is different, then the cluster will be updated. However if it doesnt exist then it will install the cluster.

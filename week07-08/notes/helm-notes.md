@@ -1,9 +1,9 @@
-#### Week 7 - 8
+# Week 7 - 8
 
-### Lab 1 Helm
+## Lab 1 Helm
 ## Steps taken for the Lab
 
-# Creating the Helm
+### Creating the Helm
 First we create our own templates (config, deployment, service) making sure not to hardcode anydata that should be changed in the values.yaml, then we instal the Helm file
 
 ```
@@ -33,7 +33,7 @@ myhelmapp-release-f4f4b9448-gjrhl   1/1     Running   0          14h
 myhelmapp-release-f4f4b9448-qn7g6   1/1     Running   0          14h
 ```
 
-# Updating the helm
+### Updating the helm
 
 After changing the Image tag, Replica count, Service type make sure to use ```helm upgrade <helm name> <file path>```
 
@@ -92,7 +92,7 @@ Image:         nginx:1.28
 ...
 
 ```
-# Rollback to 1.27, 2 replicas, and clusterIP service type
+### Rollback to 1.27, 2 replicas, and clusterIP service type
 ```
 PS C:\Users\Jose Montalvo\Documents\GitHub\k8s-enterprise-capstone-team1> helm rollback myhelmapp-release 9
 Rollback was a success! Happy Helming!
@@ -123,14 +123,14 @@ PS C:\Users\Jose Montalvo\Documents\GitHub\k8s-enterprise-capstone-team1> kubect
 Image:         nginx:1.27
 ...
 ```
-## Important explanations
+# Important explanations
 - When creating a helm chart, it is important to make sure that any data that should be changed is not hardcoded in the templates but instead is placed in the values.yaml file. this is where all the all the important variables that might get regularly changed will be declared.
 - The diferance between a template and raw Yaml file is simple. A raw file will have all the data hard coded into the file, however a template file will take its important information that might be changed 
 and and call that information from a file that declares variables like the values.yaml file. This allows for easier updates and maintenance of the helm chart.
 - When you create a helm it will store both the kubectl manifests and the values for the deployment. So when the helm is rolled back helm will retrieve the old version and reaply those values and menefests to match the old state. However, after some research I found out that only the kuberneties manifests are managed by helm, any external data and resaurses will not be changed by a helm rollback 
 
 
-# other notes 
+# Other Notes 
 - When updating a helm chart, it is important to use the ```helm upgrade``` command to apply the changes. This will ensure that the changes are properly applied and that the helm chart is updated correctly.
 - When rolling back a helm chart, it is important to use the ```helm rollback``` command to revert to a previous version. This will ensure that the rollback is properly applied and that the helm chart is reverted correctly.
 - When checking the status of a helm chart, it is important to use the ```helm list``` command to view the current status of the helm chart. This will provide information about the current version, status, and other details about the helm chart.
