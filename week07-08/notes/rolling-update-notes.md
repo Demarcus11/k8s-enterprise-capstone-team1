@@ -1,3 +1,11 @@
+
+PS C:\Users\Jose Montalvo\Documents\GitHub\k8s-enterprise-capstone-team1> kubectl set image deployment/rolling-demo app=nginx:1.27
+deployment.apps/rolling-demo image updated
+PS C:\Users\Jose Montalvo\Documents\GitHub\k8s-enterprise-capstone-team1> kubectl rollout status deployment/rolling-demo
+deployment "rolling-demo" successfully rolled out
+
+
+
 # Deployment Strategies
 
 ## Blue-Green
