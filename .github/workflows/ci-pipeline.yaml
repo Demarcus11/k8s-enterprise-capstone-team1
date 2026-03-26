@@ -13,7 +13,7 @@ jobs:
 
       # 1. Validate YAML
       - name: Validate YAML
-        run: helm lint week07-08/solutions/helm/sample-app
+        run: helm lint ./week07-08/solutions/sample-app
 
       # 2. Build (Mock)
       - name: Build container image (mock)
