@@ -7,7 +7,7 @@ on:
 
 jobs:
   ci-cd-pipeline:
-    runs-on: ubuntu-latest # Removed the 'if: merged == true' line
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
 
