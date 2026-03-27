@@ -23,7 +23,7 @@ jobs:
           echo "Image build complete."
 
       # Image Scan
-      - name: Run Trivy Image Scan (Static)
+      - name: Run Trivy Image Scan
         run: |
           echo "Scanning Nginx image for vulnerabilities..."
           docker run ghcr.io/aquasecurity/trivy image --severity HIGH,CRITICAL nginx:latest
@@ -32,7 +32,8 @@ jobs:
       - name: Validate Kubernetes Manifests
         run: |
           echo "Scanning manifests in week09-10/manifests for policy violations..."
-          docker run ghcr.io/aquasecurity/trivy config ./week09-10/manifests \
+          # -v ${{ github.workspace }}:/apps  <-- Maps your repo to /apps inside the container
+          docker run -v ${{ github.workspace }}:/apps ghcr.io/aquasecurity/trivy config /apps/week09-10/manifests \
             --severity HIGH,CRITICAL \
             --exit-code 1
 
