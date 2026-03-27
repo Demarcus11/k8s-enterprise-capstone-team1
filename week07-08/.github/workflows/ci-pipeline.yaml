@@ -2,21 +2,18 @@ name: CI Pipeline
 
 # Trigger pipeline on PR merge to main
 on:
-  pull_request:
-    types: [closed]
-    branches: [main]
+  push:
+    branches: [week09-10-lab-3-testing]
 
 jobs:
   ci-cd-pipeline:
-    # Run only if PR is merged (doesn't run if PR is closed/rejected)
-    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
 
       # Validate YAML
       - name: Validate YAML
-        run: helm lint ./solutions/helm/sample-app
+        run: helm lint ./solutions/sample-app
 
       # Build (Mock)
       - name: Build container image (mock)
@@ -25,8 +22,34 @@ jobs:
           echo "Simulating image build for sample-app:latest..."
           echo "Image build complete."
 
+      # 3. Image Scan
+      - name: Run Trivy vulnernability scanner
+        run: |
+          echo "Starting Trivy Image Scan..."
+          # 1. Delete old job
+          kubectl delete job trivy-scan --ignore-not-found
+
+          # 2. Apply trivy-scan manifest
+          kubectl apply -f ./week09-10/trivy-scan.yaml
+
+          # 3. Wait for the job to reach 'Complete' status (timeout after 15 mins)
+          echo "Waiting for scan to complete..."
+          kubectl wait --for=condition=complete job/trivy-scan --timeout=15m
+
+          # 4. Show scan output
+          kubectl logs job/trivy-scan
+
+      # Enforce Deployment Standards
+      - name: Validate Kubernetes Manifests
+        run: |
+          echo "Scanning manifests for policy violations..."
+          # --exit-code 1 means it will stop the pipeline if it finds a 'HIGH' issue
+          docker run ghcr.io/aquasecurity/trivy config ./week09-10/manifests \
+            --severity HIGH,CRITICAL \
+            --exit-code 1
+
       # Deploy to Kubernetes
       - name: Deploy to Kubernetes using Helm
         run: |
           echo "Deploying to Kubernetes using Helm..."
-          helm upgrade --install sample-app ./solutions/helm/sample-app
+          helm upgrade --install sample-app ./solutions/sample-app

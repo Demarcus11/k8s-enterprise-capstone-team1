@@ -1,0 +1,12 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: trivy-scan
+spec:
+  template:
+    spec:
+      containers:
+        - name: trivy
+          image: ghcr.io/aquasecurity/trivy:latest
+          args: ["image", "--timeout", "15m", "nginx:latest"]
+      restartPolicy: Never
