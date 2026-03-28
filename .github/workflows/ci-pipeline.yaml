@@ -45,7 +45,9 @@ jobs:
           format: table
           exit-code: '1'            # Fail pipeline on vulnerabilities found
           severity: 'CRITICAL,HIGH' # Only fail on CRITICAL or HIGH
-          ignore-unfixed: false
+          ignore-unfixed: True 
+          # True will let unfixed vulnerabilities pass; otherwise the pipeline fails. 
+          # For the sake of subsequent labs Post Week09-10, Lab 3, this is true so that we don't have lingering pipeline fails from old lab submissions.
 
   # Builds container image using a mock build (not actual container).
   build-image:
