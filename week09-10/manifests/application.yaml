@@ -6,8 +6,8 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: 
-    targetRevision: week009-10-Alex    
+    repoURL: https://github.com/Demarcus11/k8s-enterprise-capstone-team1.git
+    targetRevision: week09-10-Alex    
     path: week09-10/manifests
   destination:
     server: https://kubernetes.default.svc
