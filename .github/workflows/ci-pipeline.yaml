@@ -45,7 +45,7 @@ jobs:
           format: table
           exit-code: '1'            # Fail pipeline on vulnerabilities found
           severity: 'CRITICAL,HIGH' # Only fail on CRITICAL or HIGH
-          ignore-unfixed: true
+          ignore-unfixed: false
 
   # Builds container image using a mock build (not actual container).
   build-image:
