@@ -18,28 +18,16 @@ spec:
         ports:
         - containerPort: 80
 
-        env:
-        - name: ENV
-          valueFrom:
-            configMapKeyRef:
-              name: app-config
-              key: ENV
-        - name: PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: app-secret
-              key: PASSWORD
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 10
+          periodSeconds: 5
 
-        volumeMounts:
-        - name: config-volume
-          mountPath: /etc/config
-        - name: secret-volume
-          mountPath: /etc/secret
-
-      volumes:
-      - name: config-volume
-        configMap:
-          name: app-config
-      - name: secret-volume
-        secret:
-          secretName: app-secret            
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 5
