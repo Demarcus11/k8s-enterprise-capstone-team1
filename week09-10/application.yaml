@@ -7,7 +7,7 @@ spec:
   source:
     repoURL: https://github.com/Demarcus11/k8s-enterprise-capstone-team1.git
     targetRevision: week09-10-Joseph
-    path: k8s
+    path: week09-10\manifests
   destination:
     server: https://kubernetes.default.svc
     namespace: dev
