@@ -25,10 +25,10 @@ spec:
                   name: app-secret # name of the secret
                   key: PASSWORD # key of the secret
           # Secret mounted as a volume
-      volumeMounts:
-        - name: secrets
-          mountPath: "/etc/secrets"
-          readOnly: true
+          volumeMounts:
+            - name: secrets
+              mountPath: "/etc/secrets"
+              readOnly: true
       volumes:
         - name: secrets
           secret:
