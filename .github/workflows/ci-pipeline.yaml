@@ -10,8 +10,6 @@ on:
 
 jobs:
   ci-cd-pipeline:
-    # Run only if PR is merged (doesn't run if PR is closed/rejected)
-    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
