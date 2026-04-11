@@ -2,6 +2,8 @@ name: CI Pipeline
 
 # Trigger pipeline on PR merge to main
 on:
+  push:
+    branches: [week09-10-Joseph]
   pull_request:
     types: [closed]
     branches: [week09-10-Joseph]
