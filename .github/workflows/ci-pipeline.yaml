@@ -4,7 +4,7 @@ name: CI Pipeline
 on:
   pull_request:
     types: [closed]
-    branches: [main]
+    branches: [week09-10-Joseph]
 
 jobs:
   ci-cd-pipeline:
@@ -25,13 +25,13 @@ jobs:
           echo "Simulating image build for sample-app:latest..."
           echo "Image build complete."
 
-      # Image Scan
+      # Image Scan using Trivy
       - name: Run Trivy Image Scan
         run: |
           echo "Scanning Nginx image for vulnerabilities..."
           docker run ghcr.io/aquasecurity/trivy image --severity HIGH,CRITICAL nginx:latest
 
-      # Enforce Deployment Standards
+      # Force Deployment Standards
       - name: Validate Kubernetes Manifests
         run: |
           echo "Scanning manifests in week09-10/manifests for policy violations..."
