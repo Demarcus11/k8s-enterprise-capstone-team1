@@ -16,7 +16,7 @@ jobs:
 
       # Validate YAML
       - name: Validate YAML
-        run: helm lint ./solutions/sample-app
+        run: helm lint ./week07-08/Solutions/sample-app
 
       # Build (Mock)
       - name: Build container image (mock)
@@ -43,4 +43,4 @@ jobs:
       - name: Deploy to Kubernetes using Helm
         run: |
           echo "Deploying to Kubernetes using Helm..."
-          helm upgrade --install sample-app ./solutions/sample-app
+          helm upgrade --install sample-app ./week07-08/Solutions/sample-app
