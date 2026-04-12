@@ -35,7 +35,7 @@ jobs:
       - name: Validate Kubernetes Manifests
         run: |
           echo "Scanning manifests in week09-10/manifests for policy violations..."
-          docker run -v ${{ github.workspace }}:/apps ghcr.io/aquasecurity/trivy config /apps/week09-10/manifests \
+          docker run -v ${{ github.workspace }}:/apps ghcr.io/aquasecurity/trivy config /apps/week09-10\manifests\bad-deployment.yaml\
             --severity HIGH,CRITICAL \
             --exit-code 1
 
