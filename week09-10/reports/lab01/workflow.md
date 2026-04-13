@@ -1,0 +1,1 @@
+ArgoCD was installed and set up to watch a helm-based application in Git. After the resource was pointed to the correct repo path, auto sync was then enabled. When changes were made in Git, the changes were automatically detected and applied to the cluster showing continuous reconciliation.
