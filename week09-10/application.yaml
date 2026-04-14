@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: sample-app
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Demarcus11/k8s-enterprise-capstone-team1.git
+    targetRevision: week09-10-Demarcus
+    path: week09-10/manifests # path of directory with deployments
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: dev # deploys deployment pods to dev namespace
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
