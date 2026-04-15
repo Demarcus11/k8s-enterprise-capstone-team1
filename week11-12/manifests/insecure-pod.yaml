@@ -1,0 +1,23 @@
+# In order to get pod spec to comply, is must be run as non-root, non-privileged 
+apiVersion: v1
+kind: Pod
+metadata:
+  name: insecure-pod
+  namespace: dev
+spec:
+  containers:
+    - name: bad-container
+      image: nginx:1.27
+      securityContext:
+        # Priviledged: true
+        privileged: true
+        # Runs as root
+        runAsUser: 0 
+      volumeMounts:
+        - name: host-vol
+          mountPath: /host
+  volumes:
+    - name: host-vol
+      # hostPath Volume
+      hostPath:
+        path: /
