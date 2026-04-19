@@ -1,0 +1,2 @@
+The use of kubernetes secrets allows sensitive data to be stored separate from application code. Secrets such as credentials
+can then be inserted into pods as environment variables or mounted as files.
